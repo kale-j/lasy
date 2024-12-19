@@ -130,7 +130,7 @@ def normalize_peak_intensity(peak_intensity, grid):
         if input_peak_intensity == 0.0:
             print("Field is zero everywhere, normalization will be skipped")
         else:
-            field *= np.sqrt(peak_intensity / input_peak_intensity))
+            field *= np.sqrt(peak_intensity / input_peak_intensity)
             grid.set_temporal_field(field)
 
 

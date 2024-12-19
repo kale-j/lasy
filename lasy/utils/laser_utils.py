@@ -130,7 +130,8 @@ def normalize_peak_intensity(peak_intensity, grid):
         if input_peak_intensity == 0.0:
             print("Field is zero everywhere, normalization will be skipped")
         else:
-            grid.set_temporal_field(np.sqrt(peak_intensity / input_peak_intensity))
+            field *= np.sqrt(peak_intensity / input_peak_intensity))
+            grid.set_temporal_field(field)
 
 
 def get_full_field(laser, theta=0, slice=0, slice_axis="x", Nt=None):

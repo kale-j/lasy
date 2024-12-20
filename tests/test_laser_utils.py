@@ -48,20 +48,29 @@ def test_laser_analysis_utils():
         tau_rms = get_duration(laser.grid, dim)
         np.testing.assert_approx_equal(2 * tau_rms, laser.profile.tau, significant=3)
 
-        # Check functionality of normalization functions
+        
+def test_laser_normalization_utils():
+    """Test the different laser normalization utilities in both geometries."""
+    for dim in ["xyt", "rt"]:
+        laser = get_gaussian_laser(dim)
+
+        # Check energy normalization
         laser.normalize(1,kind="energy")
         energy = compute_laser_energy(dim, laser.grid)
         np.testing.assert_approx_equal(1, energy, significant=10)
-        # peak amplitude
+        
+        # Check peak field normalization
         laser.normalize(1,kind="field")
         field = laser.grid.get_temporal_field()
         np.testing.assert_approx_equal(1, np.abs(field.max()), significant=10)
-        # peak intensity
+        
+        # Check peak intensity normalization
         laser.normalize(1,kind="intensity")
         field = laser.grid.get_temporal_field()
         intensity = np.abs(epsilon_0 * field**2 / 2 * c)
         np.testing.assert_approx_equal(1, intensity.max(), significant=10)
-        # average intensity
+        
+        # Check average intensity normalization
         laser.normalize(1,kind="average_intensity")
         field = laser.grid.get_temporal_field()
         intensity = np.abs(epsilon_0 * field**2 / 2 * c)
@@ -70,3 +79,4 @@ def test_laser_analysis_utils():
 
 if __name__ == "__main__":
     test_laser_analysis_utils()
+    test_laser_normalization_utils()

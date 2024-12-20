@@ -51,7 +51,7 @@ def test_laser_analysis_utils():
         # Check functionality of normalization functions
         laser.normalize(1,kind="energy")
         energy = compute_laser_energy(dim, laser.grid)
-        np.testing.assert_approx_equal(1, np.abs(field.max()), significant=10)
+        np.testing.assert_approx_equal(1, energy, significant=10)
         # peak amplitude
         laser.normalize(1,kind="field")
         field = laser.grid.get_temporal_field()

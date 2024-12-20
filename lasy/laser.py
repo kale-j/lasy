@@ -157,6 +157,10 @@ class Laser:
         kind : string (optional)
             Distance by which the laser pulse should be propagated
             Options: ``'energy``', ``'field'``, ``'intensity'``, ``'average_intensity'`` (default is ``'energy'``)
+
+        Notes
+        -----
+        The normalization to average intensity operates on the intensity envelope
         """
         if kind == "energy":
             normalize_energy(self.dim, value, self.grid)

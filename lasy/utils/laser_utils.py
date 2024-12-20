@@ -118,7 +118,7 @@ def normalize_peak_intensity(peak_intensity, grid):
     Parameters
     ----------
     peak_intensity : scalar (W/m^2)
-        Peak field amplitude of the laser pulse after normalization.
+        Peak intensity of the laser pulse after normalization.
 
     grid : a Grid object
         Contains value of the laser envelope and metadata.
@@ -140,7 +140,7 @@ def normalize_average_intensity(average_intensity, grid):
     Parameters
     ----------
     average_intensity : scalar (W/m^2)
-        Average field amplitude of the laser pulse after normalization.
+        Average intensity of the laser pulse envelope after normalization.
 
     grid : a Grid object
         Contains value of the laser envelope and metadata.

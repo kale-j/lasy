@@ -4,10 +4,10 @@ from scipy.constants import c
 
 from lasy.utils.grid import Grid, time_axis_indx
 from lasy.utils.laser_utils import (
+    normalize_average_intensity,
     normalize_energy,
     normalize_peak_field_amplitude,
     normalize_peak_intensity,
-    normalize_average_intensity,
 )
 from lasy.utils.openpmd_output import write_to_openpmd_file
 

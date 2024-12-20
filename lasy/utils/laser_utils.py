@@ -133,6 +133,7 @@ def normalize_peak_intensity(peak_intensity, grid):
             field *= np.sqrt(peak_intensity / input_peak_intensity)
             grid.set_temporal_field(field)
 
+
 def normalize_average_intensity(average_intensity, grid):
     """
     Normalize energy of the laser pulse contained in grid.
@@ -154,7 +155,7 @@ def normalize_average_intensity(average_intensity, grid):
         else:
             field *= np.sqrt(average_intensity / input_average_intensity)
             grid.set_temporal_field(field)
-            
+
 
 def get_full_field(laser, theta=0, slice=0, slice_axis="x", Nt=None):
     """

@@ -7,6 +7,7 @@ from lasy.utils.laser_utils import (
     normalize_energy,
     normalize_peak_field_amplitude,
     normalize_peak_intensity,
+    make_periodic_on_grid,
 )
 from lasy.utils.openpmd_output import write_to_openpmd_file
 
@@ -353,6 +354,28 @@ class Laser:
         self.grid.hi[time_axis_indx] += translate_time
         self.grid.axes[time_axis_indx] += translate_time
 
+    def make_periodic(self, value, kind="grid"):
+        """
+        Make the laser periodic. Currently supported option is "grid"
+
+        Parameters
+        ----------
+        value : array_like
+            Value(s) used for applying periodicity, defined in ``kind``
+
+        kind : string (optional)
+            Options: ``'grid``' (default is ``'grid'``)
+            grid: periodicity is enforced on the grid by Fourier transforming the spatial profile and applying a filter with maximum k given by value[0] (mandatory) and super-Gaussian order given by value[1] (optional, default is 4)
+        """
+        if kind == "grid":
+            if len(value) == 1:
+                make_periodic_on_grid(self.dim, value, self.grid)
+            else:
+                make_periodic_on_grid(self.dim, value[0], self.grid, sg_order=value[1])                
+        else:
+            raise ValueError(f'kind "{kind}" not recognized')
+
+    
     def write_to_file(
         self,
         file_prefix="laser",

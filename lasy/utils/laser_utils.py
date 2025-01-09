@@ -1134,8 +1134,6 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
 
     # Transform the field from spatial to wavenumber domain
     field_fft = np.fft.fftn(field, axes=(0,1))
-    # center zero frequency to make application of filter easier
-    field_fft = np.fft.fftshift(field_fft, axes=(0,1))
     # Create the axes for wavenumbers
     kx = 2 * np.pi * np.fft.fftfreq(Nx, grid.dx[0])
     ky = 2 * np.pi * np.fft.fftfreq(Ny, grid.dx[1])
@@ -1144,7 +1142,6 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
     filt = np.exp(-((kx_g**2+ky_g**2)/(kmax**2))**sg_order)
     field_fft *= np.repeat(filt[:,:,np.newaxis],Nt,axis=2)
     # inverse transform
-    field_fft = np.fft.ifftshift(field_fft, axes=(0,1))
     field = np.fft.ifftn(field_fft, axes=(0,1))
     grid.set_temporal_field(field)
 

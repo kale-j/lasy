@@ -1139,7 +1139,7 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
     # Create the axes for wavenumbers
     kx = 2 * np.pi * np.fft.fftfreq(Nx, grid.dx[0])
     ky = 2 * np.pi * np.fft.fftfreq(Ny, grid.dx[1])
-    [ky_g,kx_g] = np.meshgrid[ky,kx]
+    [ky_g,kx_g] = np.meshgrid(ky,kx)
     # filter
     filt = np.exp(-((kx**2+ky**2)/(kmax**2))**sg_order)
     field_fft *= filt

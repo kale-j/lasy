@@ -1141,7 +1141,7 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
     ky = 2 * np.pi * np.fft.fftfreq(Ny, grid.dx[1])
     [ky_g,kx_g] = np.meshgrid(ky,kx)
     # filter
-    filt = np.exp(-((kx**2+ky**2)/(kmax**2))**sg_order)
+    filt = np.exp(-((kx_g**2+ky_g**2)/(kmax**2))**sg_order)
     field_fft *= filt
     # inverse transform
     field_fft = np.fft.ifftshift(field_fft, axes=(0,1))

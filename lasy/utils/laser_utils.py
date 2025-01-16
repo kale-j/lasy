@@ -118,7 +118,7 @@ def normalize_peak_intensity(peak_intensity, grid):
     Parameters
     ----------
     peak_intensity : scalar (W/m^2)
-        Peak field amplitude of the laser pulse after normalization.
+        Peak intensity of the laser pulse after normalization.
 
     grid : a Grid object
         Contains value of the laser envelope and metadata.
@@ -131,6 +131,29 @@ def normalize_peak_intensity(peak_intensity, grid):
             print("Field is zero everywhere, normalization will be skipped")
         else:
             field *= np.sqrt(peak_intensity / input_peak_intensity)
+            grid.set_temporal_field(field)
+
+
+def normalize_average_intensity(average_intensity, grid):
+    """
+    Normalize energy of the laser pulse contained in grid.
+
+    Parameters
+    ----------
+    average_intensity : scalar (W/m^2)
+        Average intensity of the laser pulse envelope after normalization.
+
+    grid : a Grid object
+        Contains value of the laser envelope and metadata.
+    """
+    if average_intensity is not None:
+        field = grid.get_temporal_field()
+        intensity = np.abs(epsilon_0 * field**2 / 2 * c)
+        input_average_intensity = intensity.mean()
+        if input_average_intensity == 0.0:
+            print("Field is zero everywhere, normalization will be skipped")
+        else:
+            field *= np.sqrt(average_intensity / input_average_intensity)
             grid.set_temporal_field(field)
 
 

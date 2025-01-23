@@ -1105,7 +1105,7 @@ def get_propation_angle(dim, grid, k0):
     angle_y = np.average(pphi_py, weights=env_abs2) / k0
     return [angle_x, angle_y]
 
-def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
+def make_periodic_on_grid(dim, kmax, grid, sg=4):
     r"""
     Makes the laser periodic on the grid. This is done by applying a low-pass super-Gaussian filter to the spatially Fouier transformed field. 
 
@@ -1124,8 +1124,8 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
     grid : a Grid object.
         It contains an ndarray (V/m) with the value of the envelope field and the associated metadata that defines the points at which the laser is defined.
 
-    sg_order : scalar
-        Super-Gaussian order of the filter, exp(-(k**2/kmax**2)**sg_order
+    sg : scalar
+        Super-Gaussian order of the filter, exp(-(k**2/kmax**2)**sg
     """
     assert dim == "xyt", "Only cartesian domains are currently supported."
     
@@ -1139,7 +1139,7 @@ def make_periodic_on_grid(dim, kmax, grid, sg_order=4):
     ky = 2 * np.pi * np.fft.fftfreq(Ny, grid.dx[1])
     [ky_g,kx_g] = np.meshgrid(ky,kx)
     # filter
-    filt = np.exp(-((kx_g**2+ky_g**2)/(kmax**2))**sg_order)
+    filt = np.exp(-((kx_g**2+ky_g**2)/(kmax**2))**sg)
     field_fft *= np.repeat(filt[:,:,np.newaxis],Nt,axis=2)
     # inverse transform
     field = np.fft.ifftn(field_fft, axes=(0,1))

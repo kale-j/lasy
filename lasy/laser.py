@@ -377,7 +377,7 @@ class Laser:
             if Nvalue == 1:
                 make_periodic_on_grid(self.dim, value, self.grid)
             else:
-                make_periodic_on_grid(self.dim, value[0], self.grid, sg_order=value[1])                
+                make_periodic_on_grid(self.dim, value[0], self.grid, sg=value[1])                
         else:
             raise ValueError(f'kind "{kind}" not recognized')
 

@@ -1128,6 +1128,7 @@ def get_propation_angle(dim, grid, k0):
     angle_y = np.average(pphi_py, weights=env_abs2) / k0
     return [angle_x, angle_y]
 
+
 def make_periodic_on_grid(dim, kmax, grid, n_order=8):
     r"""
     Makes the laser periodic on the grid. This is done by applying a low-pass super-Gaussian filter to the spatially Fouier transformed field.
@@ -1157,14 +1158,14 @@ def make_periodic_on_grid(dim, kmax, grid, n_order=8):
     Nx, Ny, Nt = field.shape
 
     # Transform the field from spatial to wavenumber domain
-    field_fft = np.fft.fftn(field, axes=(0,1))
+    field_fft = np.fft.fftn(field, axes=(0, 1))
     # Create the axes for wavenumbers
     kx = 2 * np.pi * np.fft.fftfreq(Nx, grid.dx[0])
     ky = 2 * np.pi * np.fft.fftfreq(Ny, grid.dx[1])
-    [ky_g,kx_g] = np.meshgrid(ky,kx)
+    [ky_g, kx_g] = np.meshgrid(ky, kx)
     # filter
-    filt = np.exp(-np.power((kx_g**2+ky_g**2)/(kmax**2),n_order/2))
-    field_fft *= np.repeat(filt[:,:,np.newaxis],Nt,axis=2)
+    filt = np.exp(-np.power((kx_g**2 + ky_g**2) / (kmax**2), n_order / 2))
+    field_fft *= np.repeat(filt[:, :, np.newaxis], Nt, axis=2)
     # inverse transform
-    field = np.fft.ifftn(field_fft, axes=(0,1))
+    field = np.fft.ifftn(field_fft, axes=(0, 1))
     grid.set_temporal_field(field)

@@ -4,11 +4,11 @@ from scipy.constants import c
 
 from lasy.utils.grid import Grid, time_axis_indx
 from lasy.utils.laser_utils import (
+    make_periodic_on_grid,
     normalize_average_intensity,
     normalize_energy,
     normalize_peak_field_amplitude,
     normalize_peak_intensity,
-    make_periodic_on_grid,
 )
 from lasy.utils.openpmd_output import write_to_openpmd_file
 
@@ -383,7 +383,7 @@ class Laser:
                 make_periodic_on_grid(self.dim, value[0], self.grid, n_order=value[1])
         else:
             raise ValueError(f'kind "{kind}" not recognized')
-    
+
     def write_to_file(
         self,
         file_prefix="laser",

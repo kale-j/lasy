@@ -1130,7 +1130,7 @@ def get_propation_angle(dim, grid, k0):
 
 def make_periodic_on_grid(dim, kmax, grid, sg=4):
     r"""
-    Makes the laser periodic on the grid. This is done by applying a low-pass super-Gaussian filter to the spatially Fouier transformed field. 
+    Makes the laser periodic on the grid. This is done by applying a low-pass super-Gaussian filter to the spatially Fouier transformed field.
 
     Parameters
     ----------
@@ -1151,7 +1151,7 @@ def make_periodic_on_grid(dim, kmax, grid, sg=4):
         Super-Gaussian order of the filter, exp(-(k**2/kmax**2)**sg
     """
     assert dim == "xyt", "Only cartesian domains are currently supported."
-    
+
     field = grid.get_temporal_field()
     Nx, Ny, Nt = field.shape
 
@@ -1167,5 +1167,3 @@ def make_periodic_on_grid(dim, kmax, grid, sg=4):
     # inverse transform
     field = np.fft.ifftn(field_fft, axes=(0,1))
     grid.set_temporal_field(field)
-
-    

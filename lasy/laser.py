@@ -375,15 +375,14 @@ class Laser:
             Nvalue = len(value)
         except:
             Nvalue = 1
-            
+
         if kind == "grid":
             if Nvalue == 1:
                 make_periodic_on_grid(self.dim, value, self.grid)
             else:
-                make_periodic_on_grid(self.dim, value[0], self.grid, sg=value[1])                
+                make_periodic_on_grid(self.dim, value[0], self.grid, sg=value[1])
         else:
             raise ValueError(f'kind "{kind}" not recognized')
-
     
     def write_to_file(
         self,

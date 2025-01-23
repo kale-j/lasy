@@ -368,7 +368,7 @@ class Laser:
 
         kind : string (optional)
             Options: ``'grid``' (default is ``'grid'``)
-            grid: periodicity is enforced on the grid by Fourier transforming the spatial profile and applying a filter with maximum k given by value[0] (mandatory) and super-Gaussian order given by value[1] (optional, default is 4)
+            grid: periodicity is enforced on the grid by Fourier transforming the spatial profile and applying a filter with maximum k given by value[0] (mandatory) and super-Gaussian order given by value[1] (optional, default is 8)
         """
         # get length of value
         try:
@@ -380,7 +380,7 @@ class Laser:
             if Nvalue == 1:
                 make_periodic_on_grid(self.dim, value, self.grid)
             else:
-                make_periodic_on_grid(self.dim, value[0], self.grid, sg=value[1])
+                make_periodic_on_grid(self.dim, value[0], self.grid, n_order=value[1])
         else:
             raise ValueError(f'kind "{kind}" not recognized')
     
